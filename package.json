@@ -1,6 +1,6 @@
 {
     "name": "ges-api-node",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "description": "Client TypeScript pour l'API GES",
     "author": "Raphaël Tiphonet",
     "license": "GPL-3.0-or-later",
@@ -22,7 +22,7 @@
         }
     },
     "scripts": {
-        "build": "tsdown"
+        "build": "tsup"
     },
     "files": [
         "dist"
@@ -35,10 +35,11 @@
     ],
     "devDependencies": {
         "@types/node": "^24.5.2",
-        "rimraf": "^6.0.1",
-        "typescript": "^5.0.0",
         "axios": "^1.6.0",
         "dotenv": "^17.2.2",
-        "tsdown": "^0.15.5"
+        "rimraf": "^6.0.1",
+        "terser": "^5.44.0",
+        "tsup": "^8.5.0",
+        "typescript": "^5.0.0"
     }
 }
