@@ -1,45 +1,50 @@
 import { BaseService } from './base';
 import { Project } from '../interfaces/project';
+import { GesAuthenticationToken } from '../types/auth';
 
 export class ProjectService extends BaseService {
-  getProjects(year: string) {
-    return this.get(`/me/${year}/projects`);
+  static getProjects(credentials: GesAuthenticationToken, year: string) {
+    return this.get(credentials, `/me/${year}/projects`);
   }
 
-  getProject(id: string) {
-    return this.get<Project>(`/me/projects/${id}`);
+  static getProject(credentials: GesAuthenticationToken, id: string) {
+    return this.get<Project>(credentials, `/me/projects/${id}`);
   }
 
-  getNextProjectSteps() {
-    return this.get('/me/nextProjectSteps');
+  static getNextProjectSteps(credentials: GesAuthenticationToken) {
+    return this.get(credentials, '/me/nextProjectSteps');
   }
 
-  joinProjectGroup(
+  static joinProjectGroup(
+    credentials: GesAuthenticationToken,
     projectRcId: number,
     projectId: number,
     projectGroupId: number,
   ) {
     return this.post(
+      credentials,
       `/me/courses/${projectRcId}/projects/${projectId}/groups/${projectGroupId}`,
     );
   }
 
-  quitProjectGroup(
+  static quitProjectGroup(
+    credentials: GesAuthenticationToken,
     projectRcId: number,
     projectId: number,
     projectGroupId: number,
   ) {
     return this.delete(
+      credentials,
       `/me/courses/${projectRcId}/projects/${projectId}/groups/${projectGroupId}`,
     );
   }
 
-  getProjectGroupMessages(projectGroupId: number) {
-    return this.get(`/me/projectGroups/${projectGroupId}/messages`);
+  static getProjectGroupMessages(credentials: GesAuthenticationToken, projectGroupId: number) {
+    return this.get(credentials, `/me/projectGroups/${projectGroupId}/messages`);
   }
 
-  sendProjectGroupMessage(projectGroupId: number, message: string) {
-    return this.post(`/me/projectGroups/${projectGroupId}/messages`, {
+  static sendProjectGroupMessage(credentials: GesAuthenticationToken, projectGroupId: number, message: string) {
+    return this.post(credentials, `/me/projectGroups/${projectGroupId}/messages`, {
       data: {
         projectGroupId,
         message,

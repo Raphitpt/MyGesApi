@@ -1,23 +1,24 @@
 import { BaseService } from './base';
+import { GesAuthenticationToken } from '../types/auth';
 
 export class ProfileService extends BaseService {
-  getYears() {
-    return this.get('/me/years');
+  static getYears(credentials: GesAuthenticationToken) {
+    return this.get(credentials, '/me/years');
   }
 
-  getProfile() {
-    return this.get('/me/profile');
+  static getProfile(credentials: GesAuthenticationToken) {
+    return this.get(credentials, '/me/profile');
   }
 
-  getAbsences(year: string) {
-    return this.get(`/me/${year}/absences`);
+  static getAbsences(credentials: GesAuthenticationToken, year: string) {
+    return this.get(credentials, `/me/${year}/absences`);
   }
 
-  getGrades(year: string) {
-    return this.get(`/me/${year}/grades`);
+  static getGrades(credentials: GesAuthenticationToken, year: string) {
+    return this.get(credentials, `/me/${year}/grades`);
   }
 
-  getCourses(year: string) {
-    return this.get(`/me/${year}/courses`);
+  static getCourses(credentials: GesAuthenticationToken, year: string) {
+    return this.get(credentials, `/me/${year}/courses`);
   }
 }

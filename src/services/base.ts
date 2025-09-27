@@ -2,9 +2,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { GesAuthenticationToken } from '../types/auth';
 
 export abstract class BaseService {
-  constructor(protected credentials: GesAuthenticationToken) {}
-
-  async request<T = any>(
+  static async request<T = any>(
+    credentials: GesAuthenticationToken,
     method: AxiosRequestConfig['method'],
     url: string,
     request_config: AxiosRequestConfig = {},
@@ -16,7 +15,7 @@ export abstract class BaseService {
       method,
       headers: {
         ...headers,
-        Authorization: `${this.credentials.token_type} ${this.credentials.access_token}`,
+        Authorization: `${credentials.token_type} ${credentials.access_token}`,
       },
       ...others,
     });
@@ -24,19 +23,19 @@ export abstract class BaseService {
     return data.result;
   }
 
-  protected get<T = any>(url: string) {
-    return this.request<T>('GET', url);
+  protected static get<T = any>(credentials: GesAuthenticationToken, url: string) {
+    return this.request<T>(credentials, 'GET', url);
   }
 
-  protected post<T = any>(url: string, request_config: AxiosRequestConfig = {}) {
-    return this.request<T>('POST', url, request_config);
+  protected static post<T = any>(credentials: GesAuthenticationToken, url: string, request_config: AxiosRequestConfig = {}) {
+    return this.request<T>(credentials, 'POST', url, request_config);
   }
 
-  protected put<T = any>(url: string, request_config: AxiosRequestConfig = {}) {
-    return this.request<T>('PUT', url, request_config);
+  protected static put<T = any>(credentials: GesAuthenticationToken, url: string, request_config: AxiosRequestConfig = {}) {
+    return this.request<T>(credentials, 'PUT', url, request_config);
   }
 
-  protected delete<T = any>(url: string) {
-    return this.request<T>('DELETE', url);
+  protected static delete<T = any>(credentials: GesAuthenticationToken, url: string) {
+    return this.request<T>(credentials, 'DELETE', url);
   }
 }

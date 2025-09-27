@@ -13,4 +13,3 @@ export { AuthService } from './services/auth';
 export { ProfileService } from './services/profile';
 export { TimetableService } from './services/timetable';
 export { ProjectService } from './services/project';
-export { BaseService } from './services/base';
