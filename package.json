@@ -1,30 +1,44 @@
 {
-    "name": "ges-api-client",
+    "name": "ges-api-node",
     "version": "1.0.0",
     "description": "Client TypeScript pour l'API GES",
+    "author": "Raphaël Tiphonet",
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Raphitpt/MyGesApi.git"
+    },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch",
-        "clean": "rimraf dist",
-        "prepare": "npm run clean && npm run build"
+    "module": "./dist/index.mjs",
+    "exports": {
+        "import": {
+            "types": "./dist/index.d.mts",
+            "default": "./dist/index.mjs"
+        },
+        "require": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
     },
+    "scripts": {
+        "build": "tsdown"
+    },
+    "files": [
+        "dist"
+    ],
     "keywords": [
         "ges",
         "api",
         "client",
         "typescript"
     ],
-    "author": "Your Name",
-    "license": "MIT",
-    "dependencies": {
-        "axios": "^1.6.0",
-        "dotenv": "^17.2.2"
-    },
     "devDependencies": {
-        "@types/node": "^20.19.17",
-        "rimraf": "^5.0.0",
-        "typescript": "^5.0.0"
+        "@types/node": "^24.5.2",
+        "rimraf": "^6.0.1",
+        "typescript": "^5.0.0",
+        "axios": "^1.6.0",
+        "dotenv": "^17.2.2",
+        "tsdown": "^0.15.5"
     }
 }
