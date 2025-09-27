@@ -5,9 +5,8 @@ export default defineConfig({
   dts: true,
   entry: ["src/index.ts"],
   format: ["cjs", "esm"],
-  minify: "terser",
+  minify: true,
   outDir: "dist",
   sourcemap: true,
-  splitting: false,
   treeshake: true
 });
