@@ -1,0 +1,7 @@
+import { GesAPI } from '../../src';
+import { credentials } from '../_credentials';
+
+void async function login() {
+  const result = await GesAPI.login(credentials.username, credentials.password);
+  console.log(result);
+}

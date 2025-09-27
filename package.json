@@ -1,0 +1,30 @@
+{
+    "name": "ges-api-client",
+    "version": "1.0.0",
+    "description": "Client TypeScript pour l'API GES",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "clean": "rimraf dist",
+        "prepare": "npm run clean && npm run build"
+    },
+    "keywords": [
+        "ges",
+        "api",
+        "client",
+        "typescript"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^1.6.0",
+        "dotenv": "^17.2.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20.19.17",
+        "rimraf": "^5.0.0",
+        "typescript": "^5.0.0"
+    }
+}
