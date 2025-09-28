@@ -45,7 +45,7 @@ export class ProjectService extends BaseService {
 
   static sendProjectGroupMessage(credentials: GesAuthenticationToken, projectGroupId: number, message: string) {
     return this.post(credentials, `/me/projectGroups/${projectGroupId}/messages`, {
-      data: {
+      body: {
         projectGroupId,
         message,
       },

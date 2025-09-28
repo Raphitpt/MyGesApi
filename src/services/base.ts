@@ -1,25 +1,34 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { GesAuthenticationToken } from '../types/auth';
+import { GesAuthenticationToken } from '~/types/auth';
+
+export interface RequestConfig {
+  headers?: Record<string, string>;
+  body?: any;
+}
 
 export abstract class BaseService {
   static async request<T = any>(
     credentials: GesAuthenticationToken,
-    method: AxiosRequestConfig['method'],
+    method: string,
     url: string,
-    request_config: AxiosRequestConfig = {},
+    request_config: RequestConfig = {},
   ) {
-    const { headers, ...others } = request_config;
+    const { headers = {}, body } = request_config;
 
-    const { data } = await axios.request<{ result: T }>({
-      url: `https://api.kordis.fr${url}`,
+    const response = await fetch(`https://api.kordis.fr${url}`, {
       method,
       headers: {
+        'Content-Type': 'application/json',
         ...headers,
         Authorization: `${credentials.token_type} ${credentials.access_token}`,
       },
-      ...others,
+      body: body ? JSON.stringify(body) : undefined,
     });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: { result: T } = await response.json();
     return data.result;
   }
 
@@ -27,11 +36,11 @@ export abstract class BaseService {
     return this.request<T>(credentials, 'GET', url);
   }
 
-  protected static post<T = any>(credentials: GesAuthenticationToken, url: string, request_config: AxiosRequestConfig = {}) {
+  protected static post<T = any>(credentials: GesAuthenticationToken, url: string, request_config: RequestConfig = {}) {
     return this.request<T>(credentials, 'POST', url, request_config);
   }
 
-  protected static put<T = any>(credentials: GesAuthenticationToken, url: string, request_config: AxiosRequestConfig = {}) {
+  protected static put<T = any>(credentials: GesAuthenticationToken, url: string, request_config: RequestConfig = {}) {
     return this.request<T>(credentials, 'PUT', url, request_config);
   }
 
